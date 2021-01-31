@@ -46,7 +46,7 @@ export const App = () => {
         const [valid, json] = is_valid_json(input);
 
         if (valid) {
-            const result = generate_tree(UiType.REACT, json);
+            const result = generate_tree(UiType.ANGULAR, json);
             setOutput(result);
         } else {
             console.error('Wrong json', json);
