@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
+import { generate_tree } from '../../utils/generate-tree';
+import { UiType } from '../../types';
 
 import './styles.scss';
 
 enum FieldType {
     INPUT = 'INPUT',
-    OUTPUT = 'OUTPUT'
+    OUTPUT = 'OUTPUT',
 }
 
 export const App = () => {
     const [input, setInput] = useState('');
     const [output, setOutput] = useState('');
+    // TODO: should be select option input, where you can choose
+    // which ui do you want.
 
     const is_valid_json = (json: string) => {
         try {
@@ -17,7 +21,7 @@ export const App = () => {
         } catch (e) {
             return [false, e];
         }
-    }
+    };
 
     const change_text = (e: React.ChangeEvent<HTMLTextAreaElement>, type: FieldType) => {
         const { value } = e.target;
@@ -31,41 +35,23 @@ export const App = () => {
                     setOutput(value);
                     break;
                 default:
-                    throw new Error('Invalid type for field!')
-                }
+                    throw new Error('Invalid type for field!');
+            }
         } catch (e) {
             console.error(e);
         }
-    }
-
-    const generate_tree = (tree: any, key: string, level: string[] = []) => {
-        let current_tree = '';
-
-        Object.keys(tree).forEach((key) => {
-            if (typeof tree[key] === 'object') {
-                const subtree = generate_tree(tree[key], key, level.concat(key));
-                current_tree += subtree;
-            } else {
-                const levels = level.concat(key).join('.')
-                current_tree += `<div className='${key}'>{ ${levels} }</div>`;
-            }
-        });
-
-
-        return `<div className='${key}_container'>${current_tree}</div>`;
-    }
+    };
 
     const make_tree = () => {
         const [valid, json] = is_valid_json(input);
 
         if (valid) {
-            const result = generate_tree(json, 'main', ['data']);
+            const result = generate_tree(UiType.REACT, json);
             setOutput(result);
-
         } else {
-            console.error('Wrong json', json);  
+            console.error('Wrong json', json);
         }
-    }
+    };
 
     return (
         <div className="container">
@@ -73,5 +59,5 @@ export const App = () => {
             <textarea name="" value={output} onChange={(e) => change_text(e, FieldType.OUTPUT)}></textarea>
             <button onClick={make_tree}>Convert</button>
         </div>
-        )
-}
+    );
+};

@@ -12,4 +12,4 @@ export const RouterApp: React.FC = () => {
             </Switch>
         </Router>
     );
-}
+};
