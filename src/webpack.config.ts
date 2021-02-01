@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const appPath = path.resolve(__dirname, './src');
+const codeMirrorPath = path.resolve(__dirname, './node_modules/codemirror/lib/codemirror.css');
 const nodeModulesPath = path.resolve('./node_modules');
 
 module.exports = {
@@ -50,6 +52,10 @@ module.exports = {
                 test: /\.(sa|sc|c)ss$/,
                 include: appPath,
                 use: ['style-loader', 'css-loader', 'sass-loader'],
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
             },
         ],
     },
