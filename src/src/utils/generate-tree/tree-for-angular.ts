@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 export const generate_tree = (tree: any, key: string, level: string[] = []) => {
     let current_tree = '';
 
@@ -7,10 +5,9 @@ export const generate_tree = (tree: any, key: string, level: string[] = []) => {
     else
         Object.keys(tree).forEach((key) => {
             if (Array.isArray(tree[key])) {
-                const id = uuidv4();
-                const subtree = generate_tree(tree[key][0], id, [id]);
+                const subtree = generate_tree(tree[key][0], key, [key]);
                 const levels = level.concat(key).join('.');
-                const template = `<div *ngFor="let ${id} of ${levels}">${subtree}</div>`;
+                const template = `<div *ngFor="let ${key} of ${levels}">${subtree}</div>`;
 
                 current_tree += template;
             } else if (typeof tree[key] === 'object') {

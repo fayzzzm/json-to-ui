@@ -6,10 +6,12 @@ import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
+import FormControl from '@material-ui/core/FormControl';
 import { Controlled as CodeMirrorInput, UnControlled as CodeMirrorOutput } from 'react-codemirror2';
+import prettier from 'prettier/standalone';
+import parser_html from 'prettier/parser-html';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
@@ -29,10 +31,8 @@ const useStyles = makeStyles((theme) => ({
 export const App = () => {
     const [input, setInput] = useState('');
     const [output, setOutput] = useState('');
-    const [type, setType] = useState('react');
+    const [type, setType] = useState(UiType.REACT);
     const classes = useStyles();
-    // TODO: should be select option input, where you can choose
-    // which ui do you want.
 
     const is_valid_json = (json: string) => {
         try {
@@ -46,8 +46,8 @@ export const App = () => {
         const [valid, json] = is_valid_json(input);
 
         if (valid) {
-            const result = generate_tree(UiType.ANGULAR, json);
-            setOutput(result);
+            const code = generate_tree(type, json);
+            format_code(code);
         } else {
             console.error('Wrong json', json);
         }
@@ -63,6 +63,15 @@ export const App = () => {
         mode: 'javascript',
         theme: 'material',
         lineNumbers: true,
+    };
+
+    const format_code = (code: string) => {
+        const formattedCode = prettier.format(code, {
+            parser: 'html',
+            plugins: [parser_html],
+        });
+
+        setOutput(formattedCode);
     };
 
     return (
