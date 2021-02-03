@@ -2,9 +2,6 @@ export const generate_tree = (tree: any, key: string, level: string[] = []) => {
     let current_tree = '';
 
     Object.keys(tree).forEach((key) => {
-        // if (Array.isArray(tree[key])) {
-
-        // }
         if (typeof tree[key] === 'object') {
             const subtree = generate_tree(tree[key], key, level.concat(key));
             current_tree += subtree;

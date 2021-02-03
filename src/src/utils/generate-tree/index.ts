@@ -1,6 +1,6 @@
+import { UiType } from '@app/types';
 import { generate_tree as react_tree } from './tree-for-react';
 import { generate_tree as angular_tree } from './tree-for-angular';
-import { UiType } from '../../types';
 
 export const generate_tree = (type: UiType, data: any) => {
     switch (type) {

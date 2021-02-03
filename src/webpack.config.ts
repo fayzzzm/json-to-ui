@@ -25,6 +25,7 @@ module.exports = {
             '@app': appPath,
             '@utils': path.resolve(appPath, './utils'),
             '@components': path.resolve(appPath, './components'),
+            '@client-types': path.resolve(appPath, './types'),
         },
         modules: [appPath, nodeModulesPath],
     },

@@ -1,6 +1,8 @@
+import { UiType } from '@app/types';
+import { generate_tree } from '@utils/generate-tree';
+
 import React, { useState } from 'react';
-import { generate_tree } from '../../utils/generate-tree';
-import { UiType } from '../../types';
+
 import { Button } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
