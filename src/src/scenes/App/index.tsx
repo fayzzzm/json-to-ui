@@ -80,6 +80,7 @@ export const App = () => {
                     <span onClick={make_tree}>Convert</span>
                 </Button>
             </FormControl>
+
             <div className="code__containers">
                 <CodeMirrorInput
                     value={input}

@@ -23,7 +23,7 @@ module.exports = {
         extensions: ['.js', '.ts', '.tsx', '.jsx'],
         alias: {
             '@app': appPath,
-            '@service': path.resolve(appPath, './services'),
+            '@utils': path.resolve(appPath, './utils'),
             '@components': path.resolve(appPath, './components'),
         },
         modules: [appPath, nodeModulesPath],
